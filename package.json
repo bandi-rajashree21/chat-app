@@ -1,0 +1,22 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "A small realtime chat application with a Node/Express + Socket.IO backend and a React + Vite frontend (TailwindCSS + DaisyUI).",
+  "main": "index.js",
+  "scripts": {
+    "build":"npm i --prefix backend && npm i --prefix frontend && npm run build --prefix frontend",
+    "start":"npm run start --prefix backend"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BANDI-RAJASHREE/chat-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BANDI-RAJASHREE/chat-app/issues"
+  },
+  "homepage": "https://github.com/BANDI-RAJASHREE/chat-app#readme"
+}
