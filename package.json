@@ -4,9 +4,8 @@
   "description": "A small realtime chat application with a Node/Express + Socket.IO backend and a React + Vite frontend (TailwindCSS + DaisyUI).",
   "main": "index.js",
   "scripts": {
-    "build": "cd frontend && npm install && npx vite build",
-    "start":"npm run start --prefix backend"
-
+    "build": "npm install --prefix backend && cd frontend && npm ci && npm run build",
+    "start": "node backend/src/index.js"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: chat-app
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        fromDatabase:
+          name: chat-app-db
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+databases:
+  - name: chat-app-db
+    plan: free
