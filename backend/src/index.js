@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import path from "path";
+import { fileURLToPath } from "url";
 
 import { connectDB } from "./lib/db.js";
 
@@ -14,15 +15,24 @@ import { app, server } from "./lib/socket.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
-const __filename = import.meta.url;
-const __dirname = path.dirname(new URL(__filename).pathname);
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Correct path to frontend build
+const distPath = path.join(__dirname, "../../frontend/dist");
+
+// ─────────────────────────────────────────────
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
-const allowedOrigin = process.env.NODE_ENV === "production" 
-  ? process.env.FRONTEND_URL || "http://localhost:5173"
-  : "http://localhost:5173";
+
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL || "http://localhost:5173"
+    : "http://localhost:5173";
 
 app.use(
   cors({
@@ -31,8 +41,7 @@ app.use(
   })
 );
 
-// Ensure CORS headers are present on all responses (fallback in case some
-// routes or error paths were returning responses without the headers).
+// Ensure CORS headers on all responses
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -45,7 +54,6 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
-  // handle preflight
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
@@ -57,11 +65,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(distPath));
 
-  // Serve index.html for all unmatched routes (SPA fallback)
+  // SPA fallback
   app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
