@@ -9,7 +9,11 @@ export const signupService = async ({ fullName, email, password }, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const newUser = await userDao.createUser({ fullName, email, password: hashedPassword });
+  const newUser = await userDao.createUser({
+    fullName,
+    email,
+    password: hashedPassword,
+  });
   generateToken(newUser._id, res);
 
   return newUser;

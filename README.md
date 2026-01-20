@@ -1,15 +1,15 @@
 # Chatty — Realtime Chat App
 
-A small realtime chat application with a Node/Express + Socket.IO backend and a React + Vite frontend (TailwindCSS + DaisyUI). 
+A small realtime chat application with a Node/Express + Socket.IO backend and a React + Vite frontend (TailwindCSS + DaisyUI).
 
 Tech stack & highlights
 
--  Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
--  Authentication & Authorization with JWT
--  Real-time messaging with Socket.io
--  Online user status
--  Global state management with Zustand
--  Error handling both on the server and on the client
+- Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
+- Authentication & Authorization with JWT
+- Real-time messaging with Socket.io
+- Online user status
+- Global state management with Zustand
+- Error handling both on the server and on the client
 
 ---
 
@@ -25,14 +25,12 @@ Tech stack & highlights
   - `src/` — React source (components, pages, store)
   - `index.html`, `vite.config.js`, `tailwind.config.js`
 
-
 ## Requirements
 
 - Node.js (v16+ recommended)
 - npm
 - MongoDB connection (Atlas URI or local)
 - Cloudinary account (for image uploads)
-
 
 ## Environment variables
 
@@ -49,7 +47,6 @@ CLOUDINARY_API_SECRET=...
 ```
 
 Replace placeholder values with your actual credentials.
-
 
 ## Setup — backend
 
@@ -70,7 +67,6 @@ Test-NetConnection -ComputerName localhost -Port 5001
 ```
 
 You should see `TcpTestSucceeded : True` if the server is listening.
-
 
 ## Setup — frontend
 
@@ -98,6 +94,3 @@ Thanks for your interest in contributing to Chatty! To keep collaboration smooth
 - For breaking changes or API changes, include migration notes in the PR description and update the README.
 
 Maintainers will review PRs, request changes where necessary, and merge when ready. Thanks — your contributions make this project better!
-
-
-

@@ -38,19 +38,24 @@ const ProfilePage = () => {
         setSelectedImg(null);
         setIsRemovedLocally(false);
       } finally {
-        try { input.value = ""; } catch (err) {}
+        try {
+          input.value = "";
+        } catch (err) {}
       }
     };
   };
 
   const handleSaveProfile = async () => {
-    await updateProfile({ fullName, profilePic: selectedImg || authUser?.profilePic });
+    await updateProfile({
+      fullName,
+      profilePic: selectedImg || authUser?.profilePic,
+    });
   };
 
   return (
     <div className="h-screen bg-base-200">
       <div className="flex items-center justify-center pt-20 px-4">
-  <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-2xl p-6 h-[calc(100vh-8rem)] overflow-auto">
+        <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-2xl p-6 h-[calc(100vh-8rem)] overflow-auto">
           <div className="text-center">
             <h1 className="text-2xl font-semibold ">Profile</h1>
             <p className="mt-2">Your profile information</p>
@@ -61,7 +66,11 @@ const ProfilePage = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="relative w-32 h-32">
               <img
-                src={selectedImg || (isRemovedLocally ? null : authUser?.profilePic) || "/avatar.png"}
+                src={
+                  selectedImg ||
+                  (isRemovedLocally ? null : authUser?.profilePic) ||
+                  "/avatar.png"
+                }
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover border-4 border-base-200 shadow-sm"
               />
@@ -90,7 +99,9 @@ const ProfilePage = () => {
 
             <div className="flex flex-col items-center gap-2 mt-2">
               <p className="text-sm text-zinc-400">
-                {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
+                {isUpdatingProfile
+                  ? "Uploading..."
+                  : "Click the camera icon to update your photo"}
               </p>
 
               <button
@@ -123,7 +134,9 @@ const ProfilePage = () => {
                 <Mail className="w-4 h-4" />
                 Email Address
               </div>
-              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authUser?.email}</p>
+              <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
+                {authUser?.email}
+              </p>
             </div>
           </div>
 
@@ -132,7 +145,11 @@ const ProfilePage = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between py-2 border-b border-zinc-700">
                 <span>Member Since</span>
-                <span>{authUser?.createdAt ? new Date(authUser.createdAt).toLocaleDateString() : ""}</span>
+                <span>
+                  {authUser?.createdAt
+                    ? new Date(authUser.createdAt).toLocaleDateString()
+                    : ""}
+                </span>
               </div>
               <div className="flex items-center justify-between py-2">
                 <span>Account Status</span>

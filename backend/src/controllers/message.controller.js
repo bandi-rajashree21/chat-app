@@ -17,7 +17,10 @@ export const getMessages = async (req, res) => {
   try {
     const { id: userToChatId } = req.params;
     const myId = req.user._id;
-    const messages = await messageService.getMessagesForChat(myId, userToChatId);
+    const messages = await messageService.getMessagesForChat(
+      myId,
+      userToChatId,
+    );
     res.status(200).json(messages);
   } catch (error) {
     console.error("Error in getMessages controller: ", error);
@@ -27,14 +30,20 @@ export const getMessages = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
   const validation = validateSendMessage(req.body);
-  if (!validation.valid) return res.status(400).json({ message: validation.message });
+  if (!validation.valid)
+    return res.status(400).json({ message: validation.message });
 
   try {
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
     const { text, image } = req.body;
 
-    const newMessage = await messageService.sendMessageService({ senderId, receiverId, text, image });
+    const newMessage = await messageService.sendMessageService({
+      senderId,
+      receiverId,
+      text,
+      image,
+    });
     res.status(201).json(newMessage);
   } catch (error) {
     console.error("Error in sendMessage controller: ", error);

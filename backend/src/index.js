@@ -16,14 +16,10 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Correct path to frontend build
 const distPath = path.join(__dirname, "../../frontend/dist");
-
-// ─────────────────────────────────────────────
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
@@ -38,7 +34,7 @@ app.use(
   cors({
     origin: allowedOrigin,
     credentials: true,
-  })
+  }),
 );
 
 // Ensure CORS headers on all responses
@@ -47,11 +43,11 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   );
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   );
 
   if (req.method === "OPTIONS") {

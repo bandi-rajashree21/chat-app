@@ -4,27 +4,47 @@ import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
   const validation = validateSignup(req.body);
-  if (!validation.valid) return res.status(400).json({ message: validation.message });
+  if (!validation.valid)
+    return res.status(400).json({ message: validation.message });
 
   try {
     const newUser = await authService.signupService(req.body, res);
-    res.status(201).json({ _id: newUser._id, fullName: newUser.fullName, email: newUser.email, profilePic: newUser.profilePic });
+    res
+      .status(201)
+      .json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        profilePic: newUser.profilePic,
+      });
   } catch (error) {
     console.error("Error in signup controller", error);
-    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal Server Error" });
   }
 };
 
 export const login = async (req, res) => {
   const validation = validateLogin(req.body);
-  if (!validation.valid) return res.status(400).json({ message: validation.message });
+  if (!validation.valid)
+    return res.status(400).json({ message: validation.message });
 
   try {
     const user = await authService.loginService(req.body, res);
-    res.status(200).json({ _id: user._id, fullName: user.fullName, email: user.email, profilePic: user.profilePic });
+    res
+      .status(200)
+      .json({
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        profilePic: user.profilePic,
+      });
   } catch (error) {
     console.error("Error in login controller", error);
-    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal Server Error" });
   }
 };
 
@@ -44,15 +64,27 @@ export const updateProfile = async (req, res) => {
     let updatedUser;
 
     if (Object.prototype.hasOwnProperty.call(req.body, "profilePic")) {
-      const profilePic = req.body.profilePic; 
+      const profilePic = req.body.profilePic;
       if (profilePic) {
         const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        updatedUser = await authService.updateProfileService(req.user._id, fullName, uploadResponse.secure_url);
+        updatedUser = await authService.updateProfileService(
+          req.user._id,
+          fullName,
+          uploadResponse.secure_url,
+        );
       } else {
-        updatedUser = await authService.updateProfileService(req.user._id, fullName, null);
+        updatedUser = await authService.updateProfileService(
+          req.user._id,
+          fullName,
+          null,
+        );
       }
     } else {
-      updatedUser = await authService.updateProfileService(req.user._id, fullName, undefined);
+      updatedUser = await authService.updateProfileService(
+        req.user._id,
+        fullName,
+        undefined,
+      );
     }
 
     res.status(200).json(updatedUser);

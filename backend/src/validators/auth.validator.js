@@ -11,6 +11,7 @@ export const validateSignup = (body) => {
 
 export const validateLogin = (body) => {
   const { email, password } = body;
-  if (!email || !password) return { valid: false, message: "Email and password are required" };
+  if (!email || !password)
+    return { valid: false, message: "Email and password are required" };
   return { valid: true };
 };

@@ -1,7 +1,8 @@
 import { axiosInstance } from "./axios";
 
 const handleError = (err) => {
-  const message = err?.response?.data?.message || err.message || "An error occurred";
+  const message =
+    err?.response?.data?.message || err.message || "An error occurred";
   const error = new Error(message);
   error.status = err?.response?.status;
   throw error;
