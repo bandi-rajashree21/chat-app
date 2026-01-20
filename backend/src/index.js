@@ -19,9 +19,13 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
+const allowedOrigin = process.env.NODE_ENV === "production" 
+  ? process.env.FRONTEND_URL || "http://localhost:5173"
+  : "http://localhost:5173";
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigin,
     credentials: true,
   })
 );
@@ -29,7 +33,6 @@ app.use(
 // Ensure CORS headers are present on all responses (fallback in case some
 // routes or error paths were returning responses without the headers).
 app.use((req, res, next) => {
-  const allowedOrigin = "http://localhost:5173";
   res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
@@ -55,8 +58,8 @@ app.use("/api/messages", messageRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 }
 

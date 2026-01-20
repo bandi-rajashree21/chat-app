@@ -8,6 +8,8 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: FRONTEND_URL
+        value: ${RENDER_EXTERNAL_URL}
       - key: MONGO_URI
         fromDatabase:
           name: chat-app-db
